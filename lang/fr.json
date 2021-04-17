@@ -2,6 +2,7 @@
   "mtte.backgroundColor": "Couleur de fond",
   "mtte.clearAction": "Tout d\u00e9selectionner",
   "mtte.clearActionToolTip": "D\u00e9cocher toutes les bo\u00eetes \u00e0 cocher",
+  "mtte.errorInvalidColor": "Format de couleur invalide. Utiliser #dddddd.",
   "mtte.foregroundColor": "Couleur du trait",
   "mtte.forge": "Forger!",
   "mtte.forgeToolTip": "Forger les \u00e9l\u00e9ments s\u00e9lectionn\u00e9s",

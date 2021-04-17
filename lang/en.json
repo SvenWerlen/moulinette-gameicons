@@ -2,6 +2,7 @@
   "mtte.backgroundColor": "Background color",
   "mtte.clearAction": "Unselect all",
   "mtte.clearActionToolTip": "Unselects all checkboxes",
+  "mtte.errorInvalidColor": "Invalid color format. Use #dddddd.",
   "mtte.foregroundColor": "Foreground color",
   "mtte.forge": "Forge!",
   "mtte.forgeToolTip": "Forge the selected items",

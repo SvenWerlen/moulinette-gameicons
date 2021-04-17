@@ -113,7 +113,7 @@ export class MoulinetteGameIcons extends game.moulinette.applications.Moulinette
     const bgColor = this.html.find("input[name='bgColor']").val()
     let re = /#[\da-f]{6}/;
     if(!re.test(fgColor) || !re.test(bgColor)) {
-      return ui.notifications.error(game.i18n.localize("ERROR.mtteInvalidColor"))
+      return ui.notifications.error(game.i18n.localize("mtte.errorInvalidColor"))
     }
     
     // store colors as preferences
