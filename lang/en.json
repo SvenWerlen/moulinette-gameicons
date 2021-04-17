@@ -1,16 +1,14 @@
 {
-  "mtte.gameIcons": "Icons",
-  "mtte.gameIconsDescription": "Instructions : check all icons you want Moulinette to forge.",
   "mtte.backgroundColor": "Background color",
-  "mtte.foregroundColor": "Foreground color",
-  "mtte.forgingGameIconsSuccess": "Images were successfully forged! Path to folder was copied into your clipboard.",
-  "mtte.forge": "Forge!",
-  "mtte.forgeToolTip": "Forge the selected items",
   "mtte.clearAction": "Unselect all",
   "mtte.clearActionToolTip": "Unselects all checkboxes",
-  "mtte.selectAllAction": "Select all",
-  "mtte.selectAllActionToolTip": "Selects all checkboxes",
+  "mtte.foregroundColor": "Foreground color",
+  "mtte.forge": "Forge!",
+  "mtte.forgeToolTip": "Forge the selected items",
+  "mtte.forgingGameIconsSuccess": "Images were successfully forged! Path to folder was copied into your clipboard.",
+  "mtte.gameIcons": "Icons",
+  "mtte.gameIconsDescription": "Instructions : check all icons you want Moulinette to forge.",
   "mtte.installingGameIcons": "Installing...",
-  
-  "mtte.END": ""
+  "mtte.selectAllAction": "Select all",
+  "mtte.selectAllActionToolTip": "Selects all checkboxes"
 }

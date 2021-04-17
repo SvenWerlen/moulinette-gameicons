@@ -30,8 +30,14 @@
 
 .mtte .options input[type="color"] {
   max-width: 44px;
+  margin-right: 60px;
 }
 
 .mtte .options .label {
   padding: 0px 3px;
+}
+
+.mtte .color {
+  margin-left: 7px;
+  width: 70px;
 }
