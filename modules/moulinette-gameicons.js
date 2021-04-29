@@ -122,6 +122,7 @@ export class MoulinetteGameIcons extends game.moulinette.applications.Moulinette
     
     SceneNavigation._onLoadProgress(game.i18n.localize("mtte.installingGameIcons"),0);  
     let idx = 0;
+    let lastResponse = null
     for(const svg of selected) {
       idx++;
       const headers = { method: "POST", headers: { 'Accept': 'application/json', 'Content-Type': 'application/json'}, body: JSON.stringify({ url: svg }) }
@@ -138,14 +139,14 @@ export class MoulinetteGameIcons extends game.moulinette.applications.Moulinette
         imageName = svg.split('/').pop() + `-${fgColor}-${bgColor}.svg`
       }
       
-      await game.moulinette.applications.MoulinetteFileUtil.upload(new File([text], imageName, { type: "image/svg+xml", lastModified: new Date() }), imageName, "moulinette/images", `moulinette/images/gameicons`, true)
+      lastResponse = await game.moulinette.applications.MoulinetteFileUtil.upload(new File([text], imageName, { type: "image/svg+xml", lastModified: new Date() }), imageName, "moulinette/images", `moulinette/images/gameicons`, true)
       SceneNavigation._onLoadProgress(game.i18n.localize("mtte.installingGameIcons"), Math.round((idx / selected.length)*100));
     }
     SceneNavigation._onLoadProgress(game.i18n.localize("mtte.installingGameIcons"),100);  
     ui.notifications.info(game.i18n.localize("mtte.forgingGameIconsSuccess"))
     
     // copy path into clipboard
-    navigator.clipboard.writeText("moulinette/images/gameicons").catch(err => {
+    navigator.clipboard.writeText(lastResponse.path).catch(err => {
       console.warn("Moulinette GameIcons | Not able to copy path into clipboard")
     });
   }
