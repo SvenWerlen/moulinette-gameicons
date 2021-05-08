@@ -109,10 +109,10 @@ export class MoulinetteGameIcons extends game.moulinette.applications.Moulinette
    ************************************/
   async _installGameIcons(selected) {
     // retrieve color
-    const fgColor = this.html.find("input[name='fgColor']").val()
-    const bgColor = this.html.find("input[name='bgColor']").val()
+    let fgColor = this.html.find("input[name='fgColor']").val()
+    let bgColor = this.html.find("input[name='bgColor']").val()
     let re = /#[\da-f]{6}/;
-    if(!re.test(fgColor) || !re.test(bgColor)) {
+    if((fgColor && !re.test(fgColor)) || (bgColor && !re.test(bgColor))) {
       return ui.notifications.error(game.i18n.localize("mtte.errorInvalidColor"))
     }
     
@@ -135,6 +135,8 @@ export class MoulinetteGameIcons extends game.moulinette.applications.Moulinette
       let imageName = svg.split('/').pop() + ".svg"
       
       if(fgColor != "#ffffff" || bgColor != "#000000") {
+        fgColor = fgColor ? fgColor : "transparent"
+        bgColor = bgColor ? bgColor : "transparent"
         text = text.replace(`fill="#fff"`, `fill="${fgColor}"`).replace(`<path d=`, `<path fill="${bgColor}" d=`)
         imageName = svg.split('/').pop() + `-${fgColor}-${bgColor}.svg`
       }
