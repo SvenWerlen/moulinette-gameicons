@@ -13,9 +13,7 @@ Hooks.once("init", async function () {
 Hooks.once("ready", async function () {
   if (game.user.isGM) {
     // create default home folder for game icons
-    await game.moulinette.applications.MoulinetteFileUtil.createFolderIfMissing(".", "moulinette");
-    await game.moulinette.applications.MoulinetteFileUtil.createFolderIfMissing("moulinette", "moulinette/images");
-    await game.moulinette.applications.MoulinetteFileUtil.createFolderIfMissing("moulinette/images", "moulinette/images/gameicons");
+    await game.moulinette.applications.MoulinetteFileUtil.createFolderRecursive("moulinette/images/gameicons");
     
     const moduleClass = (await import("./modules/moulinette-gameicons.js")).MoulinetteGameIcons
     game.moulinette.forge.push({
