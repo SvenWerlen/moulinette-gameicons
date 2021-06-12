@@ -8,6 +8,8 @@ export class MoulinetteGameIcons extends game.moulinette.applications.Moulinette
     this.scenes = []
   }
   
+  supportsModes() { return false }
+  
   /**
    * Implements getAssetList
    */
