@@ -68,9 +68,10 @@ export class MoulinetteGameIcons extends game.moulinette.applications.Moulinette
   async getFooter() {
     const fgColor = game.settings.get("moulinette", "gIconFgColor")
     const bgColor = game.settings.get("moulinette", "gIconBgColor")
+    const compact = game.settings.get("moulinette-core", "uiMode") == "compact"
     return `<div class="options">
-      ${game.i18n.localize("mtte.foregroundColor")} <input class="color" type="text" name="fgColor" maxlength="7" value="${fgColor}"> <input type="color" value="${fgColor}" data-edit="fgColor">
-      ${game.i18n.localize("mtte.backgroundColor")} <input class="color" type="text" name="bgColor" maxlength="7" value="${bgColor}"> <input type="color" value="${bgColor}" data-edit="bgColor"> 
+      ${compact ? "" : game.i18n.localize("mtte.foregroundColor")} <input class="color" type="text" name="fgColor" maxlength="7" value="${fgColor}"> <input type="color" value="${fgColor}" data-edit="fgColor">
+      ${compact ? "" : game.i18n.localize("mtte.backgroundColor")} <input class="color" type="text" name="bgColor" maxlength="7" value="${bgColor}"> <input type="color" value="${bgColor}" data-edit="bgColor"> 
     </div>`
   }
   
