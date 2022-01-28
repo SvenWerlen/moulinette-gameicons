@@ -1,0 +1,15 @@
+{
+  "mtte.backgroundColor": "背景色",
+  "mtte.clearAction": "選択全解除",
+  "mtte.clearActionToolTip": "チェック全解除",
+  "mtte.errorInvalidColor": "色のフォーマットが無効です。#ddddddのように指定してください。",
+  "mtte.foregroundColor": "前景色",
+  "mtte.forge": "ダウンロード！",
+  "mtte.forgeToolTip": "選択した素材をダウンロード",
+  "mtte.forgingGameIconsSuccess": "画像が無事ダウンロードされました。画像のパスがクリップボードにコピーされました。",
+  "mtte.gameIcons": "アイコン",
+  "mtte.gameIconsDescription": "使い方：Moulinetteにダウンロードしてほしいすべてのアイコンを選択してください。",
+  "mtte.installingGameIcons": "インストール中……",
+  "mtte.selectAllAction": "戦前卓",
+  "mtte.selectAllActionToolTip": "すべてのチェックボックスを選択します。"
+}
