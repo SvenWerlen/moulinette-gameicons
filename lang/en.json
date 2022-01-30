@@ -9,6 +9,8 @@
   "mtte.forgingGameIconsSuccess": "Images were successfully downloaded! Path to folder was copied into your clipboard.",
   "mtte.gameIcons": "Icons",
   "mtte.gameIconsDescription": "Instructions : check all icons you want Moulinette to download.",
+  "mtte.howto": "Help",
+  "mtte.howtoToolTip": "See the available documentation (dynamic).",
   "mtte.installingGameIcons": "Installing...",
   "mtte.selectAllAction": "Select all",
   "mtte.selectAllActionToolTip": "Selects all checkboxes"

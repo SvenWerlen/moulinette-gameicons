@@ -101,6 +101,9 @@ export class MoulinetteGameIcons extends game.moulinette.applications.Moulinette
       
       this._installGameIcons(names)
     } 
+    else if(classList.contains("howto")) {
+      new game.moulinette.applications.MoulinetteHelp("icons").render(true)
+    }
     else {
       console.warn(`MoulinetteGameIcons | No action implemented for action '${classList}'`)
     }
