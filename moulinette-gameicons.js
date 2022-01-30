@@ -29,6 +29,11 @@ Hooks.once("ready", async function () {
         {id: "howto", icon: "fas fa-question-circle" ,name: game.i18n.localize("mtte.howto"), help: game.i18n.localize("mtte.howtoToolTip") }
       ]
     })
+
+    if(game.moulinette) {
+      game.moulinette.sources.push({ type: "tiles", publisher: "Game-icons.net", pack: "Downloaded icons", source: game.moulinette.applications.MoulinetteFileUtil.getSource(), path: "moulinette/images/gameicons" })
+      console.log("Moulinette GameIcons | Game-icons.net has been added to the sources to be indexed")
+    }
         
     console.log("Moulinette GameIcons | Module loaded")
   }
