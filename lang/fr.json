@@ -2,6 +2,8 @@
   "mtte.backgroundColor": "Couleur de fond",
   "mtte.clearAction": "Tout déselectionner",
   "mtte.clearActionToolTip": "Décocher toutes les boîtes à cocher",
+  "mtte.deletepreset": "Supprimer prédéfini",
+  "mtte.enterPresetName": "Saisir un libellé pour ces couleurs",
   "mtte.errorInvalidColor": "Format de couleur invalide. Utiliser #dddddd.",
   "mtte.foregroundColor": "Couleur du trait",
   "mtte.forge": "Télécharger!",
@@ -12,6 +14,12 @@
   "mtte.howto": "Aide",
   "mtte.howtoToolTip": "Accéder aux rubriques d'aide",
   "mtte.installingGameIcons": "Installation...",
+  "mtte.preset": "Couleurs prédéfinies",
+  "mtte.presetBlackTransparent": "Noir sur transparent",
+  "mtte.presetBlackWhite": "Noir sur blanc",
+  "mtte.presetName": "Couleurs prédéfines",
+  "mtte.presetWhiteBlack": "Blanc sur noir",
+  "mtte.saveaspreset": "Enregistrer",
   "mtte.selectAllAction": "Tout selectionner",
   "mtte.selectAllActionToolTip": "Coche toutes les boîtes à cocher"
 }

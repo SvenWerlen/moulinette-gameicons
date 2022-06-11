@@ -2,6 +2,8 @@
   "mtte.backgroundColor": "Background color",
   "mtte.clearAction": "Unselect all",
   "mtte.clearActionToolTip": "Unselects all checkboxes",
+  "mtte.deletepreset": "Delete preset",
+  "mtte.enterPresetName": "Enter a text to label this preset",
   "mtte.errorInvalidColor": "Invalid color format. Use #dddddd.",
   "mtte.foregroundColor": "Foreground color",
   "mtte.forge": "Download!",
@@ -12,6 +14,12 @@
   "mtte.howto": "Help",
   "mtte.howtoToolTip": "See the available documentation (dynamic).",
   "mtte.installingGameIcons": "Installing...",
+  "mtte.preset": "Color presets",
+  "mtte.presetBlackTransparent": "Black on transparent",
+  "mtte.presetBlackWhite": "Black on white",
+  "mtte.presetName": "Color preset",
+  "mtte.presetWhiteBlack": "White on black",
+  "mtte.saveaspreset": "Save as preset",
   "mtte.selectAllAction": "Select all",
   "mtte.selectAllActionToolTip": "Selects all checkboxes"
 }

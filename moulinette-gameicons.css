@@ -40,3 +40,11 @@
   margin-left: 7px;
   width: 70px;
 }
+
+.mtte .options button {
+  width: inherit;
+}
+
+.mtte .deletePreset {
+  visibility: hidden;
+}
