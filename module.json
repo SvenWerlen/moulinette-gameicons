@@ -1,37 +1,53 @@
 {
-  "name": "moulinette-gameicons",
   "title": "Moulinette Game Icons (module)",
   "description": "This module for Moulinette adds capabilities for searching and downloading icons from game-icons.net.",
   "version": "3.3.0",
-  "author": "Sven Werlen",
-  "esmodules": ["moulinette-gameicons.js"],
-  "styles": ["moulinette-gameicons.css"],
+  "esmodules": [
+    "moulinette-gameicons.js"
+  ],
+  "styles": [
+    "moulinette-gameicons.css"
+  ],
   "languages": [
     {
       "lang": "en",
       "name": "English",
-      "path": "lang/en.json"
+      "path": "lang/en.json",
+      "flags": {}
     },
     {
       "lang": "fr",
       "name": "French",
-      "path": "lang/fr.json"
+      "path": "lang/fr.json",
+      "flags": {}
     },
     {
       "lang": "ja",
       "name": "日本語",
-      "path": "lang/ja.json"
-    }
-  ],
-  "dependencies": [
-    {
-      "name": "moulinette-core",
-      "type": "module"
+      "path": "lang/ja.json",
+      "flags": {}
     }
   ],
   "url": "https://github.com/SvenWerlen/moulinette-gameicons",
   "download": "https://github.com/SvenWerlen/moulinette-gameicons/archive/v-3.3.0.zip",
   "manifest": "https://raw.githubusercontent.com/SvenWerlen/moulinette-gameicons/master/module.json",
-  "minimumCoreVersion": "9",
-  "compatibleCoreVersion": "9"
+  "id": "moulinette-gameicons",
+  "authors": [
+    {
+      "name": "Sven Werlen",
+      "flags": {}
+    }
+  ],
+  "relationships": {
+    "requires": [
+      {
+        "id": "moulinette-core",
+        "type": "module",
+        "compatibility": {}
+      }
+    ]
+  },
+  "compatibility": {
+    "minimum": "10"
+  }
 }
