@@ -24,9 +24,6 @@ Hooks.once("ready", async function () {
       description: game.i18n.localize("mtte.gameIconsDescription"),
       instance: new moduleClass(),
       actions: [
-        {id: "clear", icon: "far fa-square" ,name: game.i18n.localize("mtte.clearAction"), help: game.i18n.localize("mtte.clearActionToolTip") },
-        {id: "selectAll", icon: "far fa-check-square" ,name: game.i18n.localize("mtte.selectAllAction"), help: game.i18n.localize("mtte.selectAllActionToolTip") },
-        {id: "install", icon: "fas fa-download" ,name: game.i18n.localize("mtte.forge"), help: game.i18n.localize("mtte.forgeToolTip") },
         {id: "howto", icon: "fas fa-question-circle" ,name: game.i18n.localize("mtte.howto"), help: game.i18n.localize("mtte.howtoToolTip") }
       ]
     })

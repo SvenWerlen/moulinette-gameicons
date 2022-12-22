@@ -1,48 +1,65 @@
-.mtte .list .gameicon {
-  display:flex;
-  align-items:center;
-  padding-left: 3px;
-  min-height: 22px;
-}
-
-.mtte .list .gameicon.alt {
-  background: rgba(255, 255, 255, 0.2);
-}
-
-.mtte .gameicon .label { 
-  width: 450px;
-  padding-left: 5px;
-}
-
-.mtte .list .gameicon:hover {
-  background-color: #666;
-  color: #eee;
+.mtte .gameicon {
+  display: inline-flex;
+  cursor: pointer;
+  position: relative;
+  margin: 2px;
 }
 
 .mtte .gameicon img {
-  width: 32px;
-  margin: 2px 0px;
+  object-fit: contain;
+  border: none;
 }
 
-.mtte .options {
-  padding: 8px;
+.mtte .gameicon .name {
+  display: none;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  background: white;
+  width: 100%;
+  text-align: center;
+  overflow: hidden;
+  border: 1px solid black;
+}
+
+.mtte .gameicon .author {
+  display: none;
+  font-size: small;
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  background: white;
+  width: 100%;
+  text-align: center;
+  overflow: hidden;
+  border: 1px solid black;
+  font-style: italic;
 }
 
 .mtte .options input[type="color"] {
   max-width: 44px;
+  max-height: 20px;
+  margin: 0px;
+  border: 0px;
 }
 
-.mtte .options .label {
-  padding: 0px 3px;
+.mtte .options a {
+  margin-left: 3px;
 }
 
 .mtte .color {
   margin-left: 7px;
   width: 70px;
+  height: 20px;
 }
 
 .mtte .options button {
   width: inherit;
+}
+
+.mtte .options select{
+  margin-left: 30px;
+  max-height: 20px;
 }
 
 .mtte .deletePreset {

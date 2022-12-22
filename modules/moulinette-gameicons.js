@@ -3,14 +3,27 @@
  */
 export class MoulinetteGameIcons extends game.moulinette.applications.MoulinetteForgeModule {
 
+  static THUMBSIZES = [75, 100, 125, 150, 200]
+
   constructor() {
     super()
     this.scenes = []
     this.presets = []
+    this.thumbsize = 1
   }
   
   supportsModes() { return false }
+  supportsThumbSizes() { return true }
   
+  /**
+   * Get text from description and other fields
+   */
+  static extractTextFromHTML(s) {
+    var span = document.createElement('span');
+    span.innerHTML = s;
+    return span.textContent || span.innerText;
+  };
+
   /**
    * Implements getAssetList
    */
@@ -25,7 +38,7 @@ export class MoulinetteGameIcons extends game.moulinette.applications.Moulinette
     const query = encodeURI(searchTerms)
     const request = { requests: [{
       indexName: "icons",
-      hitsPerPage: 50,
+      hitsPerPage: 100,
       params: `query=${query}&page=0`
     }]}
     
@@ -38,13 +51,18 @@ export class MoulinetteGameIcons extends game.moulinette.applications.Moulinette
     
     const res = await response.json()
     let html = ""
+
+    // add disclaimer with copyrights as requested by CC BY 3.0
+    assets.push(`<div class="disclaimer">${game.i18n.localize("mtte.gameIconsDisclaimer")}</div>`)
+
+    const thumbSize = MoulinetteGameIcons.THUMBSIZES[this.thumbsize]
     res.results[0].hits.forEach( r => {
-      const author = r.id.split('/')[1]
-      assets.push(`<div class="gameicon" title="${r._highlightResult.content.value}">
-        <input type="checkbox" class="check" name="${r.id}" value="${r.id}">
-        <img src="https://game-icons.net/icons/ffffff/000000/${r.id}.svg"/>
-        <span class="label">${r.name}</span>
-        <a href="https://game-icons.net/about.html#authors" target="_blank">${author}@game-icons.net</a>
+      // regex is used to capitalize first letter of each word (https://www.freecodecamp.org/news/how-to-capitalize-words-in-javascript/)
+      const author = r.id.split('/')[1].replace("-", " ").replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase());
+      assets.push(`<div data-id="${r.id}" class="gameicon" title="${MoulinetteGameIcons.extractTextFromHTML(r.content)}">
+        <img src="https://game-icons.net/icons/ffffff/000000/${r.id}.svg" width="${thumbSize}" height="${thumbSize}"/>
+        <div class="name">${r.name}</div>
+        <div class="author">By <a href="https://game-icons.net/about.html#authors" target="_blank">${MoulinetteGameIcons.extractTextFromHTML(author)}</a></div>
       </div>`)
     })
   
@@ -59,17 +77,35 @@ export class MoulinetteGameIcons extends game.moulinette.applications.Moulinette
     // keep html for later usage
     this.html = html
     
+    // show details on mouse over
+    html.find(".gameicon").mouseover((ev) => {
+      $(ev.currentTarget).find("img").css({ opacity: 0.5 });
+      $(ev.currentTarget).find(".name").show()
+      $(ev.currentTarget).find(".author").show()
+    });
+
+    // hide details on mouse out
+    html.find(".gameicon").mouseout((ev) => {
+      $(ev.currentTarget).find("img").css({ opacity: 1.0 });
+      $(ev.currentTarget).find(".name").hide()
+      $(ev.currentTarget).find(".author").hide()
+    });
+
+    //
+    html.find(".gameicon").click((ev) => {
+      const iconId = $(ev.currentTarget).data("id");
+      this._installGameIcons(iconId)
+    });
+
     // preset selected
     html.find(".options select").change(this._onPreset.bind(this))
 
-    // enable alt _alternateColors
-    this._alternateColors()
+    // actions
+    html.find(".options .save").click(this._onSavePreset.bind(this))
+    html.find(".options .deletePreset").click(this._onDeletePreset.bind(this))
 
     // fill color presets
     this.resetPresets()
-
-    // game icons has a larger footer
-    html.find(".list").css("bottom", "188px")
   }
   
   /**
@@ -82,13 +118,9 @@ export class MoulinetteGameIcons extends game.moulinette.applications.Moulinette
     let footer = `<div class="options">
       ${compact ? "" : game.i18n.localize("mtte.foregroundColor")} <input class="color" type="text" name="fgColor" maxlength="7" value="${fgColor}"> <input name="fgColorPicker" type="color" value="${fgColor}" data-edit="fgColor">
       ${compact ? "" : game.i18n.localize("mtte.backgroundColor")} <input class="color" type="text" name="bgColor" maxlength="7" value="${bgColor}"> <input name="bgColorPicker" type="color" value="${bgColor}" data-edit="bgColor">
-      <button class="save">${game.i18n.localize("mtte.saveaspreset")}</button>`
+      <a class="save" title="${game.i18n.localize("mtte.saveaspreset")}"><i class="fas fa-floppy-disk"></i></a>`
     // add presets
-    footer += `<br />${compact ? "" : game.i18n.localize("mtte.preset")} <select class="presets"><option value="">--</option>`
-    for(let i = 0; i < this.presets.length; i++) {
-      footer += `<option value="${i+1}">${this.presets[i].name}</option>`
-    }
-    footer += `</select> <button class="deletePreset">${game.i18n.localize("mtte.deletepreset")}</button>`
+    footer += `<select class="presets"></select> <a class="deletePreset" title="${game.i18n.localize("mtte.deletepreset")}"><i class="fas fa-trash"></i></a>`
     footer += "</div>"
     return footer
   }
@@ -104,7 +136,7 @@ export class MoulinetteGameIcons extends game.moulinette.applications.Moulinette
       this.presets.push(p)
     }
     // prepare HTML
-    let select = `<select class="presets"><option value="">--</option>`
+    let select = `<select class="presets"><option value="">-- ${game.i18n.localize("mtte.preset")} --</option>`
     for(let i = 0; i < this.presets.length; i++) {
       select += `<option value="${i+1}">${this.presets[i].name}</option>`
     }
@@ -125,66 +157,46 @@ export class MoulinetteGameIcons extends game.moulinette.applications.Moulinette
       this.html.find("input[name='bgColorPicker']").val(this.presets[idx-1].bg)
     }
   }
-  
-  _alternateColors() {
-    $('.forge .gameicon').removeClass("alt");
-    $('.forge .gameicon:even').addClass("alt");
+
+  _onSavePreset() {
+    const parent = this
+    Dialog.prompt({
+      title: game.i18n.localize("mtte.presetName"),
+      content: ` <input type="text" placeholder="${game.i18n.localize("mtte.enterPresetName")}"><br/>`,
+      callback: (html) => {
+        const label = html.find('input').val()
+        if(label && label.length > 0) {
+          const fgColor = this.html.find("input[name='fgColor']").val()
+          const bgColor = this.html.find("input[name='bgColor']").val()
+
+          const list = game.settings.get("moulinette", "gIconPresets")
+          list.push({name: label, fg: fgColor, bg: bgColor})
+          list.sort(function(a, b) { return ('' + a.name).localeCompare(b.name); });
+          game.settings.set("moulinette", "gIconPresets", list).then((a) => { parent.resetPresets() })
+        }
+      }
+    })
   }
-  
+
+  _onDeletePreset() {
+    const parent = this
+    const idx = parseInt(this.html.find(".presets :selected").val())
+    if(idx > 0 && idx <= this.presets.length) {
+      // remove selected index from list
+      // idx = index in drop-down list
+      // basePresetsCount = number of base presets (which are not stored in prefs)
+      let list = game.settings.get("moulinette", "gIconPresets")
+      list.splice(idx-this.basePresetsCount-1, 1)
+      game.settings.set("moulinette", "gIconPresets", list).then((a) => { parent.resetPresets() })
+    }
+  }
   
   /**
    * Implements actions
-   * - clear: unchecks all check boxes
-   * - install: installs all selected scenes
    */
   async onAction(classList) {
-    if(classList.contains("clear")) {
-      this.html.find(".list .check:checkbox").prop('checked', false);
-    }
-    else if(classList.contains("selectAll")) {
-      this.html.find(".list .check:checkbox").prop('checked', true);
-    }
-    else if (classList.contains("install")) {
-      const names = []
-      this.html.find(".list .check:checkbox:checked").each(function () {
-        names.push($(this).attr("name"))
-      });
-      
-      this._installGameIcons(names)
-    } 
-    else if(classList.contains("howto")) {
+    if(classList.contains("howto")) {
       new game.moulinette.applications.MoulinetteHelp("icons").render(true)
-    }
-    else if(classList.contains("save")) {
-      const parent = this
-      Dialog.prompt({
-        title: game.i18n.localize("mtte.presetName"),
-        content: ` <input type="text" placeholder="${game.i18n.localize("mtte.enterPresetName")}">`,
-        callback: (html) => {
-          const label = html.find('input').val()
-          if(label && label.length > 0) {
-            const fgColor = this.html.find("input[name='fgColor']").val()
-            const bgColor = this.html.find("input[name='bgColor']").val()
-
-            const list = game.settings.get("moulinette", "gIconPresets")
-            list.push({name: label, fg: fgColor, bg: bgColor})
-            list.sort(function(a, b) { return ('' + a.name).localeCompare(b.name); });
-            game.settings.set("moulinette", "gIconPresets", list).then((a) => { parent.resetPresets() })
-          }
-        }
-      })
-    }
-    else if(classList.contains("deletePreset")) {
-      const parent = this
-      const idx = parseInt(this.html.find(".presets :selected").val())
-      if(idx > 0 && idx <= this.presets.length) {
-        // remove selected index from list
-        // idx = index in drop-down list
-        // basePresetsCount = number of base presets (which are not stored in prefs)
-        let list = game.settings.get("moulinette", "gIconPresets")
-        list.splice(idx-this.basePresetsCount-1, 1)
-        game.settings.set("moulinette", "gIconPresets", list).then((a) => { parent.resetPresets() })
-      }
     }
     else {
       console.warn(`MoulinetteGameIcons | No action implemented for action '${classList}'`)
@@ -195,7 +207,7 @@ export class MoulinetteGameIcons extends game.moulinette.applications.Moulinette
   /*************************************
    * Main action
    ************************************/
-  async _installGameIcons(selected) {
+  async _installGameIcons(svg) {
     // retrieve color
     let fgColor = this.html.find("input[name='fgColor']").val()
     let bgColor = this.html.find("input[name='bgColor']").val()
@@ -208,40 +220,43 @@ export class MoulinetteGameIcons extends game.moulinette.applications.Moulinette
     game.settings.set("moulinette", "gIconFgColor", fgColor)
     game.settings.set("moulinette", "gIconBgColor", bgColor)
     
-    SceneNavigation._onLoadProgress(game.i18n.localize("mtte.installingGameIcons"),0);  
     let idx = 0;
     let lastResponse = null
-    for(const svg of selected) {
-      idx++;
-      const headers = { method: "POST", headers: { 'Accept': 'application/json', 'Content-Type': 'application/json'}, body: JSON.stringify({ url: svg }) }
-      const response = await fetch(game.moulinette.applications.MoulinetteClient.SERVER_URL + "/bundler/fvtt/gameicon", headers).catch(function(e) {
-        console.error(`Moulinette GameIcons | Cannot download image ${svg}`, e)
-      });
-      if(!response) continue
-      
-      let text = await response.text()
-      let imageName = svg.split('/').pop() + ".svg"
-      
-      if(fgColor != "#ffffff" || bgColor != "#000000") {
-        fgColor = fgColor ? fgColor : "transparent"
-        bgColor = bgColor ? bgColor : "transparent"
-        text = text.replace(`fill="#fff"`, `fill="${fgColor}"`).replace(`<path d=`, `<path fill="${bgColor}" d=`)
-        imageName = svg.split('/').pop() + `-${fgColor}-${bgColor}.svg`
-      }
-      
-      // fix for Firefox users => add widths
-      text = text.replace("<svg", `<svg width="200" height="200"`)
-      
-      lastResponse = await game.moulinette.applications.MoulinetteFileUtil.upload(new File([text], imageName.replaceAll("#", "C"), { type: "image/svg+xml", lastModified: new Date() }), imageName, "moulinette/images", `moulinette/images/gameicons`, true)
-      SceneNavigation._onLoadProgress(game.i18n.localize("mtte.installingGameIcons"), Math.round((idx / selected.length)*100));
+    idx++;
+    const headers = { method: "POST", headers: { 'Accept': 'application/json', 'Content-Type': 'application/json'}, body: JSON.stringify({ url: svg }) }
+    const response = await fetch(game.moulinette.applications.MoulinetteClient.SERVER_URL + "/bundler/fvtt/gameicon", headers).catch(function(e) {
+      console.error(`Moulinette GameIcons | Cannot download image ${svg}`, e)
+    });
+    if(!response) return
+
+    let text = await response.text()
+    let imageName = svg.split('/').pop() + ".svg"
+
+    if(fgColor != "#ffffff" || bgColor != "#000000") {
+      fgColor = fgColor ? fgColor : "transparent"
+      bgColor = bgColor ? bgColor : "transparent"
+      text = text.replace(`fill="#fff"`, `fill="${fgColor}"`).replace(`<path d=`, `<path fill="${bgColor}" d=`)
+      imageName = svg.split('/').pop() + `-${fgColor}-${bgColor}.svg`
     }
-    SceneNavigation._onLoadProgress(game.i18n.localize("mtte.installingGameIcons"),100);  
+
+    // fix for Firefox users => add widths
+    text = text.replace("<svg", `<svg width="200" height="200"`)
+
+    lastResponse = await game.moulinette.applications.MoulinetteFileUtil.upload(new File([text], imageName.replaceAll("#", "C"), { type: "image/svg+xml", lastModified: new Date() }), imageName, "moulinette/images", `moulinette/images/gameicons`, true)
+
     ui.notifications.info(game.i18n.localize("mtte.forgingGameIconsSuccess"))
     
     // copy path into clipboard
     navigator.clipboard.writeText(lastResponse.path).catch(err => {
       console.warn("Moulinette GameIcons | Not able to copy path into clipboard")
     });
+  }
+
+  async onChangeThumbsSize(increase) {
+    // change thumbsize (and check that it's within range of available sizes)
+    this.thumbsize = Math.max(0, Math.min(MoulinetteGameIcons.THUMBSIZES.length-1, increase ? this.thumbsize + 1 : this.thumbsize -1))
+    const size = MoulinetteGameIcons.THUMBSIZES[this.thumbsize]
+    this.html.find(".gameicon img").css("width", size).css("height", size)
   }
   
 }
