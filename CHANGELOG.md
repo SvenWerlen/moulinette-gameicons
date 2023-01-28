@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - 10.1.1 Fix for Ernie's modern UI
 - 10.1.2 Fix for croped images
+- 10.1.3 Back to main branch
 ### Changed
 - New look-and-feel harmonized with other modules
 - Mouse over to see details
