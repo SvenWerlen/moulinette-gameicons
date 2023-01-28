@@ -4,7 +4,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [10.0.4] - 2022-10-30
+## [10.2.0] - 2022-01-28
+### Changed
+- New look-and-feel general availability
+
+## [10.1.2] - 2022-12-22
+### Fixed
+- 10.1.1 Fix for Ernie's modern UI
+- 10.1.2 Fix for croped images
+### Changed
+- New look-and-feel harmonized with other modules
+- Mouse over to see details
+- Click to download
+- Smaller footer
+
+## [10.0.3] - 2022-10-30
 ### Fixed
 - 10.0.1 Fix V10 packaging
 - 10.0.2 FoundryVTT v10 doesn't support '#' in file names
