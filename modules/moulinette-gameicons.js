@@ -230,7 +230,7 @@ export class MoulinetteGameIcons extends game.moulinette.applications.Moulinette
       }
       
       // fix for Firefox users => add widths
-      text = text.replace("<svg", `<svg width="200" height="200"`)
+      text = text.replace("<svg", `<svg width="512" height="512"`)
       
       lastResponse = await game.moulinette.applications.MoulinetteFileUtil.upload(new File([text], imageName, { type: "image/svg+xml", lastModified: new Date() }), imageName, "moulinette/images", `moulinette/images/gameicons`, true)
       SceneNavigation._onLoadProgress(game.i18n.localize("mtte.installingGameIcons"), Math.round((idx / selected.length)*100));
