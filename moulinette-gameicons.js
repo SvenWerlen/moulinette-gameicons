@@ -1,3 +1,4 @@
+import { MoulinetteGameIconsPicker } from "./modules/moulinette-gameicons-picker.js";
 
 
 Hooks.once("init", async function () {
@@ -35,4 +36,7 @@ Hooks.once("ready", async function () {
         
     console.log("Moulinette GameIcons | Module loaded")
   }
+
+  // make MoulinetteGameIconsPicker available
+  game.moulinette.applications["MoulinetteGameIconsPicker"] = MoulinetteGameIconsPicker
 });

@@ -1,0 +1,17 @@
+<form autocomplete="off" onsubmit="event.preventDefault();">
+  <div class="form-group search">
+    <input id="search" type="text" placeholder="{{localize "mtte.search"}}" value="{{terms}}"></input>
+    <button class="search"><i class="fas fa-search"></i></button>
+  </div>
+  {{#if icons}}
+  <div class="disclaimer">{{{localize "mtte.gameIconsDisclaimer"}}}</div>
+  {{/if}}
+  <div class="list">
+    {{#each icons as |icon|}}
+    <div data-id="{{icon.id}}" class="gameicon" title="{{icon.name}}">
+      <img src="{{icon.url}}" width="75" height="75"/>
+      <div class="author">By <a href="https://game-icons.net/about.html#authors" target="_blank">{{icon.author}}</a></div>
+    </div>
+    {{/each}}
+  </div>
+</form>
