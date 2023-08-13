@@ -6,5 +6,6 @@
   "mtte.gameIcons": "アイコン",
   "mtte.gameIconsDescription": "使い方：Moulinetteにダウンロードしてほしいすべてのアイコンを選択してください。",
   "mtte.howto": "ヘルプ",
-  "mtte.howtoToolTip": "使い方：新たな画像・タイルのインストール方法"
+  "mtte.howtoToolTip": "使い方：新たな画像・タイルのインストール方法",
+  "mtte.search": "検索語句を入力して……Enterキーで検索（ボタンクリックでも可）"
 }
